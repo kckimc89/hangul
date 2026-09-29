@@ -13,14 +13,21 @@ textarea{min-height:160px}.big{font-size:22px;line-height:1.65}.score{font-size:
 nav button{background:#eef2f6;color:#243b53}.hidden{display:none}.pill{display:inline-block;background:#eef2f6;border-radius:999px;padding:6px 10px;margin:3px;font-size:14px}
 table{width:100%;border-collapse:collapse}td,th{padding:9px;border-bottom:1px solid #eee;text-align:left}
 </style></head><body>
-<header><div class="wrap"><h1>1학년 국어공부 <small>V1.5</small></h1><div class="sub">차분하게 읽고, 듣고, 생각하는 국어 수업</div></div></header>
+<header><div class="wrap"><h1>1학년 국어공부 <small>V1.6</small></h1><div class="sub">차분하게 읽고, 듣고, 생각하는 국어 수업</div></div></header>
 <main class="wrap">
-<section id="home">
-<div class="card"><h2>오늘의 수업</h2><p>한 번의 받아쓰기 시험은 <b>10문제</b>입니다. 최근 문제를 피해서 가능한 한 새로운 문제가 먼저 출제됩니다.</p>
-<button onclick="startDictation(false)">① 받아쓰기 시작</button>
-<button class="secondary" onclick="show('momStudy')">엄마가 만든 공부</button></div>
-<div class="card"><h2>다른 국어 수업</h2><p>② 낱말　③ 문장 이해　④ 짧은 글 읽기　⑤ 표현하기</p><p class="sub">기존 수업 영역은 유지하며 받아쓰기와 부모님 학습관리를 먼저 강화하고 있습니다.</p></div>
-<div class="card"><h2>부모님</h2><button class="secondary" onclick="show('parent')">부모님 학습관리</button></div>
+<section id="home" class="active">
+<div class="card">
+<h2>받아쓰기 공부</h2>
+<p class="sub">한 번에 10문제씩 차근차근 공부해요.</p>
+<button onclick="startBuiltIn()">자유 받아쓰기</button>
+<p class="sub">문제은행에서 새로운 문제를 우선 골라 10문제씩 출제합니다.</p>
+</div>
+<div class="card">
+<h2>엄마 받아쓰기</h2>
+<button onclick="go('momStudy')">엄마가 만든 문제 공부</button>
+<button class="secondary" onclick="go('parent')">엄마 문제 만들기 · 학습기록</button>
+<p class="sub">엄마는 정답 문장만 입력하면 됩니다. 비슷한 보기는 자동으로 만듭니다.</p>
+</div>
 </section>
 
 <section id="quiz" class="hidden"><div class="card">
@@ -31,13 +38,14 @@ table{width:100%;border-collapse:collapse}td,th{padding:9px;border-bottom:1px so
 <section id="result" class="hidden"><div class="card"><h2>시험 결과</h2><div id="score" class="score"></div><div id="resultDetail"></div>
 <button onclick="show('home')">수업 홈</button><button class="secondary" id="retryWrong">틀린 문제 다시 공부</button></div></section>
 
-<section id="momStudy" class="hidden"><div class="card"><h2>엄마가 만든 공부</h2><div id="sets"></div>
+<section id="momStudy" class="hidden"><div class="card"><h2>엄마 받아쓰기</h2><div id="sets"></div>
 <button class="secondary" onclick="show('home')">돌아가기</button></div></section>
 
 <section id="parent" class="hidden">
 <div class="card"><h2>엄마 문제 입력</h2>
-<p><b>① 공부 이름을 적고 → ② 정답 문장만 한 줄에 하나씩 적으세요.</b><br>비슷한 오답 보기는 프로그램이 자동으로 만듭니다.</p>
-<label><b>① 공부 이름</b></label><input id="setName" placeholder="예: 10월 1주 받아쓰기">
+<p><b>① 받아쓰기 이름을 적고 → ② 정답 문장만 한 줄에 하나씩 적으세요.</b><br>비슷한 오답 보기는 프로그램이 자동으로 만듭니다.</p>
+<p class="sub">10문제 이상 입력하면 한 번 공부할 때 10문제씩 출제됩니다.</p>
+<label><b>① 받아쓰기 이름</b></label><input id="setName" placeholder="예: 10월 1주 받아쓰기">
 <label><b>② 정답 문장 입력</b></label>
 <div class="card" style="background:#f7f9fc"><b>입력 예</b><br>친구와 함께 학교에 갑니다.<br>꽃이 활짝 피었습니다.<br>오늘은 하늘이 참 맑습니다.<br><span class="sub">※ 정답만 입력합니다. 보기 문장은 입력하지 않아도 됩니다.</span></div>
 <textarea id="bulk" oninput="updateCount()" placeholder="여기에 정답 문장을 한 줄에 하나씩 입력하세요."></textarea>
@@ -45,7 +53,7 @@ table{width:100%;border-collapse:collapse}td,th{padding:9px;border-bottom:1px so
 <button class="secondary" onclick="previewSet()">③ 만들어질 문제 미리보기</button>
 <button onclick="saveSet()">④ 저장하기</button>
 <div id="previewBox"></div></div>
-<div class="card"><h2>저장된 문제 묶음</h2><div id="parentSets"><p class="sub">아직 저장된 문제 묶음이 없습니다.</p></div></div>
+<div class="card"><h2>저장된 받아쓰기 묶음</h2><div id="parentSets"><p class="sub">아직 저장된 받아쓰기 묶음이 없습니다.</p></div></div>
 <div class="card"><h2>학습 현황</h2><div id="stats"></div></div>
 <button class="secondary" onclick="show('home')">수업 홈</button></section>
 </main>
@@ -66,8 +74,98 @@ const BANK = [
 "예쁜 나비가 꽃밭을 날아다닙니다.","어머니께서 맛있는 과일을 깎아 주셨습니다.",
 "물건을 사용한 뒤에는 제자리에 놓습니다.","밤하늘에 반짝이는 별이 보입니다.","선물을 받고 기쁜 마음이 들었습니다.","넘어진 친구에게 손을 내밀었습니다.",
 "비 오는 날에는 길이 미끄럽습니다.","나는 매일 아침 스스로 이불을 갭니다.","교실 창문으로 시원한 바람이 들어옵니다.","친구와 생각이 달라도 이야기를 잘 듣습니다.",
-"공원에 여러 가지 색깔의 꽃이 피었습니다.","책을 읽고 가장 재미있는 장면을 이야기했습니다."
-];
+"공원에 여러 가지 색깔의 꽃이 피었습니다.","책을 읽고 가장 재미있는 장면을 이야기했습니다.",
+'아침에 일어나 이를 닦았습니다.',
+'친구와 사이좋게 지냅니다.',
+'책상 위에 공책을 놓았습니다.',
+'운동장에서 신나게 뛰었습니다.',
+'비가 와서 우산을 썼습니다.',
+'동생과 함께 그림을 그렸습니다.',
+'할머니께 안부 전화를 드렸습니다.',
+'창문을 열어 맑은 공기를 마셨습니다.',
+'가방에 연필과 지우개를 넣었습니다.',
+'선생님의 말씀을 잘 들었습니다.',
+'점심을 먹고 이를 깨끗이 닦았습니다.',
+'강아지가 꼬리를 흔들며 달려옵니다.',
+'나뭇잎이 바람에 살랑살랑 흔들립니다.',
+'오늘은 기분이 참 좋습니다.',
+'놀이터에서 친구를 만났습니다.',
+'도서관에서는 조용히 책을 읽습니다.',
+'횡단보도에서는 신호를 지킵니다.',
+'쓰레기는 쓰레기통에 버립니다.',
+'물을 마신 뒤 컵을 제자리에 놓았습니다.',
+'우리 반 친구들과 노래를 불렀습니다.',
+'봄에는 예쁜 꽃이 많이 핍니다.',
+'여름에는 시원한 수박을 먹습니다.',
+'가을에는 나뭇잎 색깔이 변합니다.',
+'겨울에는 따뜻한 옷을 입습니다.',
+'고양이가 창가에서 낮잠을 잡니다.',
+'참새가 나뭇가지에 앉아 있습니다.',
+'아버지와 공원에서 자전거를 탔습니다.',
+'어머니와 시장에 다녀왔습니다.',
+'동생에게 재미있는 책을 읽어 주었습니다.',
+'친구에게 고맙다고 말했습니다.',
+'잘못했을 때는 미안하다고 말합니다.',
+'학교에 가기 전에 준비물을 확인합니다.',
+'수업이 끝나면 책상을 정리합니다.',
+'연필을 바르게 잡고 글씨를 씁니다.',
+'모르는 낱말은 뜻을 찾아봅니다.',
+'오늘 배운 내용을 다시 읽어 보았습니다.',
+'친구의 이야기를 끝까지 들었습니다.',
+'차례를 지키며 줄을 섭니다.',
+'급식은 먹을 만큼만 받습니다.',
+'손을 깨끗이 씻고 밥을 먹습니다.',
+'하늘에 하얀 구름이 떠 있습니다.',
+'밤하늘에 별이 반짝입니다.',
+'달이 밝게 빛나고 있습니다.',
+'산길에서 예쁜 도토리를 주웠습니다.',
+'화분에 물을 주고 꽃을 살펴보았습니다.',
+'냉장고에서 시원한 물을 꺼냈습니다.',
+'주말에 가족과 함께 산책했습니다.',
+'생일을 맞은 친구를 축하했습니다.',
+'내일은 체육 수업이 있습니다.',
+'숙제를 마치고 가방을 챙겼습니다.',
+'교실 문을 살며시 닫았습니다.',
+'복도에서는 천천히 걸어갑니다.',
+'계단에서는 장난치지 않습니다.',
+'친구와 약속한 시간을 지켰습니다.',
+'궁금한 것은 선생님께 질문했습니다.',
+'색종이로 작은 배를 접었습니다.',
+'종이비행기가 멀리 날아갔습니다.',
+'비가 그치고 무지개가 나타났습니다.',
+'눈이 내려 온 세상이 하얗습니다.',
+'따뜻한 햇볕이 창문으로 들어옵니다.',
+'바람이 불어 머리카락이 날립니다.',
+'우리 가족은 서로 도와줍니다.',
+'저녁을 먹고 책을 읽었습니다.',
+'잠자기 전에 내일 할 일을 생각했습니다.',
+'아침밥을 먹고 학교에 갑니다.',
+'친구와 공을 주고받았습니다.',
+'교실에 들어가 반갑게 인사했습니다.',
+'칠판에 오늘 날짜가 적혀 있습니다.',
+'공책에 오늘 배운 내용을 적었습니다.',
+'가위로 색종이를 조심히 잘랐습니다.',
+'풀로 종이를 붙여 작품을 만들었습니다.',
+'비 오는 날에는 길이 미끄럽습니다.',
+'신발을 가지런히 벗어 놓았습니다.',
+'옷을 스스로 입고 단추를 잠갔습니다.',
+'따뜻한 국을 천천히 먹었습니다.',
+'과일을 깨끗이 씻어 먹었습니다.',
+'우유를 마시고 빈 팩을 정리했습니다.',
+'친구가 넘어져서 일으켜 주었습니다.',
+'아픈 친구에게 괜찮냐고 물었습니다.',
+'새로운 친구에게 먼저 인사했습니다.',
+'우리 동네에는 작은 공원이 있습니다.',
+'길을 건널 때는 좌우를 살핍니다.',
+'버스에서는 안전띠를 맵니다.',
+'공공장소에서는 큰 소리로 떠들지 않습니다.',
+'약속을 지키는 사람이 되고 싶습니다.',
+'오늘 하루도 즐겁게 보냈습니다.',
+'내일도 건강하게 학교에 가고 싶습니다.',
+'책을 읽으면 새로운 것을 알게 됩니다.',
+'모두 함께 교실을 깨끗이 청소했습니다.',
+'친구와 생각이 달라도 이야기를 들어 봅니다.',
+'받아쓰기를 끝까지 차분하게 풀었습니다.'];
 let current=[], idx=0, answers=[], mode="bank", activeSet=null;
 const key="koreanV14";
 let db=JSON.parse(localStorage.getItem(key)||'{"sets":[],"history":[],"recentBank":[]}');
@@ -76,16 +174,37 @@ function show(id){document.querySelectorAll("main>section").forEach(x=>x.classLi
 function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
 function makeWrong(s){
  const outs=[];
- const rules=[
-  x=>x.replace(/함께/g,"함게").replace(/깨끗/g,"깨끋").replace(/읽/g,"익").replace(/맑/g,"막"),
-  x=>x.replace(/ ([가-힣]+)(에|에서|으로|와|과|을|를|이|가) /," $1$2").replace(/학교에 /,"학교에").replace(/뒤에는 /,"뒤에는"),
-  x=>x.replace(/습니다/g,"슴니다").replace(/했습니다/g,"햇습니다").replace(/있습니다/g,"잇습니다"),
-  x=>x.replace(/띄어/g,"띠어").replace(/끝까지/g,"끋까지").replace(/꽃/g,"꼳").replace(/낱말/g,"낟말"),
-  x=>x.replace(/사이좋게/g,"사이 조케").replace(/고맙다고/g,"고맙 다고").replace(/제자리에/g,"제 자리에")
+ function add(x){x=(x||"").trim();if(x&&x!==s&&!outs.includes(x))outs.push(x)}
+ const replacements=[
+  ["함께","함게"],["학교","학고"],["맑","막"],["읽","익"],["꽃","꼳"],["끝","끋"],["낱말","낟말"],
+  ["깨끗","깨끋"],["있","잇"],["않","안"],["됐","됬"],["되어","돼어"],["하였습니다","하였읍니다"],
+  ["습니다","슴니다"],["했습니다","햇습니다"],["좋","조"],["같이","가치"],["며칠","몇일"],["왠지","웬지"]
  ];
- for(const f of shuffle(rules)){let w=f(s);if(w!==s&&!outs.includes(w))outs.push(w);if(outs.length===3)break}
- while(outs.length<3){let p=s.replace(/ /, outs.length%2?"":""); if(p===s||outs.includes(p)) p=s.replace(/[.!?]$/,""); if(!outs.includes(p)&&p!==s)outs.push(p); else outs.push("다시 잘 듣고 문장을 살펴보세요 "+(outs.length+1));}
- return outs.slice(0,3)
+ for(const [a,b] of replacements){if(s.includes(a))add(s.replace(a,b))}
+ // 띄어쓰기 오답: 실제 공백 하나를 붙임
+ let spaces=[]; for(let i=0;i<s.length;i++) if(s[i]===" ") spaces.push(i);
+ for(const pos of spaces){
+   add(s.slice(0,pos)+s.slice(pos+1));
+   if(outs.length>=3) break;
+ }
+ // 조사/어미 앞에 잘못된 띄어쓰기
+ const particles=["에서","에게","으로","까지","부터","처럼","보다","하고","와","과","을","를","이","가","은","는","에"];
+ for(const pt of particles){
+   let k=s.indexOf(pt);
+   if(k>0 && s[k-1]!==" ") add(s.slice(0,k)+" "+s.slice(k));
+   if(outs.length>=3) break;
+ }
+ // 문장부호 누락은 마지막 보조 오답
+ if(/[.!?]$/.test(s)) add(s.slice(0,-1));
+ // 어떤 문장에서도 반드시 고유 오답 3개 확보: 공백 위치 변형
+ let words=s.replace(/[.!?]$/,"").split(/\s+/).filter(Boolean);
+ if(words.length>=2){
+   add(words[0]+words[1]+" "+words.slice(2).join(" ")+(s.match(/[.!?]$/)?.[0]||""));
+   if(words.length>=3)add(words.slice(0,-2).join(" ")+" "+words[words.length-2]+words[words.length-1]+(s.match(/[.!?]$/)?.[0]||""));
+ }
+ // 마지막 안전장치: 문장부호를 잘못 바꿈 (중복 금지)
+ add(s.replace(/[.!?]?$/,"?")); add(s.replace(/[.!?]?$/,"!"));
+ return outs.slice(0,3);
 }
 function startDictation(wrongOnly){
  mode="bank"; activeSet=null;
@@ -103,7 +222,7 @@ function startSet(i, wrongOnly=false){
 function begin(){idx=0;answers=[];show("quiz");renderQ();setTimeout(speakCurrent,300)}
 function renderQ(){
  let q=current[idx];document.getElementById("qmeta").textContent=`${idx+1} / ${current.length}`;
- let opts=shuffle([q.text,...q.wrong]);document.getElementById("choices").innerHTML=opts.map(o=>`<button class="choice" onclick='pick(${JSON.stringify(o)})'>${o}</button>`).join("");
+ let opts=shuffle([...new Set([q.text,...q.wrong])]);document.getElementById("choices").innerHTML=opts.map(o=>`<button class="choice" onclick='pick(${JSON.stringify(o)})'>${o}</button>`).join("");
  document.getElementById("feedback").innerHTML="";
 }
 function speakCurrent(){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(current[idx].text);u.lang="ko-KR";u.rate=.82;speechSynthesis.speak(u)}
@@ -120,7 +239,7 @@ function updateCount(){let n=inputLines().length;document.getElementById("inputC
 function previewSet(){
  let lines=inputLines();let box=document.getElementById("previewBox");
  if(!lines.length){box.innerHTML='<div class="bad card">먼저 정답 문장을 입력해주세요.</div>';return}
- let sample=lines.slice(0,3).map((text,i)=>{let opts=shuffle([text,...makeWrong(text)]);return `<div class="card"><b>${i+1}. 예시 문제</b><p class="sub">🔊 음성으로 정답 문장을 들려줍니다.</p>${opts.map(x=>`<div style="padding:8px;border-bottom:1px solid #eee">${x}</div>`).join("")}</div>`}).join("");
+ let sample=lines.slice(0,3).map((text,i)=>{let opts=shuffle([...new Set([text,...makeWrong(text)])]);return `<div class="card"><b>${i+1}. 예시 문제</b><p class="sub">🔊 음성으로 정답 문장을 들려줍니다.</p>${opts.map(x=>`<div style="padding:8px;border-bottom:1px solid #eee">${x}</div>`).join("")}</div>`}).join("");
  box.innerHTML=`<h3>이렇게 출제됩니다</h3><p>${lines.length}문제를 만들 수 있습니다. 아래는 처음 3개의 미리보기입니다.</p>${sample}`;
 }
 function editSet(i){
@@ -148,7 +267,7 @@ function saveSet(){
 
 function renderParentSets(){
  let e=document.getElementById("parentSets"); if(!e)return;
- if(!db.sets.length){e.innerHTML='<p class="sub">아직 저장된 문제 묶음이 없습니다.</p>';return}
+ if(!db.sets.length){e.innerHTML='<p class="sub">아직 저장된 받아쓰기 묶음이 없습니다.</p>';return}
  e.innerHTML=db.sets.map((s,i)=>`<div class="card"><h3>${s.name}</h3><p><b>${s.items.length}문제</b>가 저장되어 있습니다.</p><button onclick="startSet(${i})">바로 공부 시작</button><button class="secondary" onclick="showSetQuestions(${i})">문제 확인</button><button class="secondary" onclick="editSet(${i})">문제 수정</button></div>`).join("");
 }
 function showSetQuestions(i){
@@ -158,14 +277,14 @@ function showSetQuestions(i){
 }
 
 function renderSets(){
- let e=document.getElementById("sets");if(!db.sets.length){e.innerHTML="<p>아직 엄마가 만든 문제 묶음이 없습니다.</p>";return}
+ let e=document.getElementById("sets");if(!db.sets.length){e.innerHTML="<p>아직 엄마가 만든 받아쓰기 묶음이 없습니다.</p>";return}
  e.innerHTML=db.sets.map((s,i)=>`<div class="card"><h3>${s.name}</h3><p>${s.items.length}문제 · 공부 ${s.studyCount||0}회</p><button onclick="startSet(${i})">공부 시작</button><button class="secondary" onclick="startSet(${i},true)">틀린 문제만</button></div>`).join("")
 }
 function renderStats(){
  let e=document.getElementById("stats");if(!db.sets.length){e.innerHTML="<p>엄마가 만든 문제를 저장하면 이곳에 기록이 표시됩니다.</p>";return}
  e.innerHTML=db.sets.map((s,i)=>{
  let stats=s.itemStats||[];let hard=stats.map((x,j)=>({j,w:x.wrong||0,last:(x.last3||[])})).filter(x=>x.w>0).sort((a,b)=>b.w-a.w).slice(0,5);
- return `<div class="card"><h3>${s.name}</h3><p><span class="pill">공부 ${s.studyCount||0}회</span><span class="pill">최근 성적 ${(s.scores||[]).slice(-5).join(" → ")||"-"}${s.scores?.length?"점":""}</span></p><h4>많이 틀린 문제</h4>${hard.length?hard.map(x=>`<p>${s.items[x.j].text}<br><small>오답 ${x.w}회 · 최근 3회 ${x.last.map(v=>v?"○":"×").join(" ")||"-"}</small></p>`).join(""):"<p>아직 오답 기록이 없습니다.</p>"}<button class="secondary" onclick="if(confirm('이 문제 묶음을 삭제할까요?')){db.sets.splice(${i},1);persist();renderStats()}">묶음 삭제</button></div>`
+ return `<div class="card"><h3>${s.name}</h3><p><span class="pill">공부 ${s.studyCount||0}회</span><span class="pill">최근 성적 ${(s.scores||[]).slice(-5).join(" → ")||"-"}${s.scores?.length?"점":""}</span></p><h4>많이 틀린 문제</h4>${hard.length?hard.map(x=>`<p>${s.items[x.j].text}<br><small>오답 ${x.w}회 · 최근 3회 ${x.last.map(v=>v?"○":"×").join(" ")||"-"}</small></p>`).join(""):"<p>아직 오답 기록이 없습니다.</p>"}<button class="secondary" onclick="if(confirm('이 받아쓰기 묶음을 삭제할까요?')){db.sets.splice(${i},1);persist();renderStats()}">묶음 삭제</button></div>`
  }).join("")
 }
 </script></body></html>
