@@ -13,19 +13,19 @@ textarea{min-height:160px}.big{font-size:22px;line-height:1.65}.score{font-size:
 nav button{background:#eef2f6;color:#243b53}.hidden{display:none}.pill{display:inline-block;background:#eef2f6;border-radius:999px;padding:6px 10px;margin:3px;font-size:14px}
 table{width:100%;border-collapse:collapse}td,th{padding:9px;border-bottom:1px solid #eee;text-align:left}
 </style></head><body>
-<header><div class="wrap"><h1>1학년 국어공부 <small>V1.6</small></h1><div class="sub">차분하게 읽고, 듣고, 생각하는 국어 수업</div></div></header>
+<header><div class="wrap"><h1>1학년 국어공부 <small>V1.6.1</small></h1><div class="sub">차분하게 읽고, 듣고, 생각하는 국어 수업</div></div></header>
 <main class="wrap">
 <section id="home" class="active">
 <div class="card">
 <h2>받아쓰기 공부</h2>
 <p class="sub">한 번에 10문제씩 차근차근 공부해요.</p>
-<button onclick="startBuiltIn()">자유 받아쓰기</button>
+<button onclick="startDictation()">자유 받아쓰기</button>
 <p class="sub">문제은행에서 새로운 문제를 우선 골라 10문제씩 출제합니다.</p>
 </div>
 <div class="card">
 <h2>엄마 받아쓰기</h2>
-<button onclick="go('momStudy')">엄마가 만든 문제 공부</button>
-<button class="secondary" onclick="go('parent')">엄마 문제 만들기 · 학습기록</button>
+<button onclick="show('momStudy')">엄마가 만든 문제 공부</button>
+<button class="secondary" onclick="show('parent')">엄마 문제 만들기 · 학습기록</button>
 <p class="sub">엄마는 정답 문장만 입력하면 됩니다. 비슷한 보기는 자동으로 만듭니다.</p>
 </div>
 </section>
