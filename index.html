@@ -1,83 +1,127 @@
-<!doctype html><html lang='ko'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='default'><meta name='theme-color' content='#f7f6f2'><link rel='manifest' href='manifest.webmanifest'><link rel='apple-touch-icon' href='apple-touch-icon.png'><title>1학년 국어공부</title><style>
-*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:#f7f6f2;color:#202124}header{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid #ddd;padding:18px 20px}.title{font-size:26px;font-weight:800}.ver{font-size:12px;color:#777;margin-top:3px}.wrap{max-width:900px;margin:auto;padding:18px}.home{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.card{background:white;border:1px solid #ddd;border-radius:18px;padding:22px;min-height:135px;box-shadow:0 2px 8px #0000000b}.card h2{margin:0 0 8px;font-size:22px}.card p{margin:0;color:#666;line-height:1.55}.card.full{grid-column:1/-1}.btn{border:0;border-radius:13px;background:#24364b;color:white;padding:13px 18px;font-size:18px;font-weight:700}.btn.alt{background:#e9edf2;color:#24364b}.btn.good{background:#316b45}.btn.warn{background:#8b4a42}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.screen{display:none}.screen.on{display:block}.panel{background:#fff;border:1px solid #ddd;border-radius:18px;padding:22px;margin-bottom:14px}.q{font-size:24px;font-weight:750;line-height:1.55;margin:10px 0 18px}.choice{display:block;width:100%;text-align:left;background:#fff;border:2px solid #d9dde3;border-radius:14px;padding:15px;margin:9px 0;font-size:19px}.choice.ok{border-color:#39844f;background:#eef8f1}.choice.no{border-color:#b75a52;background:#fff1ef}.small{font-size:14px;color:#777}.feedback{font-size:18px;line-height:1.55;margin-top:14px;font-weight:650}.reading{font-size:21px;line-height:1.8;background:#fbfbfa;border-radius:14px;padding:18px}.speak{font-size:20px}.canvasWrap{background:#fff;border:2px solid #ccd1d7;border-radius:16px;overflow:hidden;touch-action:none}.guide{height:360px;position:relative;background:repeating-linear-gradient(to bottom,#fff 0,#fff 58px,#d8e0e8 59px,#d8e0e8 60px)}canvas{width:100%;height:360px;display:block;touch-action:none}.answer{display:none;background:#f0f6ff;border-radius:14px;padding:17px;font-size:22px;font-weight:750;margin-top:14px}.answer.on{display:block}.progress{font-weight:700;color:#59636f;margin-bottom:7px}.input{width:100%;font-size:18px;padding:12px;border:1px solid #bbb;border-radius:10px}.result{font-size:24px;font-weight:800}.navback{margin-bottom:14px}.note{padding:12px 14px;background:#fff7df;border-radius:12px;line-height:1.5;color:#6d5720}@media(max-width:600px){.home{grid-template-columns:1fr}.card.full{grid-column:auto}.title{font-size:23px}.q{font-size:21px}.reading{font-size:19px}}
-.statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat{background:#f5f7f9;border-radius:13px;padding:14px;text-align:center}.stat b{display:block;font-size:23px;margin-top:5px}.setrow{display:flex;justify-content:space-between;gap:12px;align-items:center;border-bottom:1px solid #eee;padding:14px 0}.setrow:last-child{border-bottom:0}.danger{color:#9b3b35}.history{display:flex;gap:7px;flex-wrap:wrap}.scorechip{background:#eef2f6;border-radius:10px;padding:7px 10px;font-weight:700}.field{margin:12px 0}.field label{display:block;font-size:14px;color:#666;margin-bottom:5px;font-weight:700}.mini{font-size:13px;color:#777}.wrongbar{height:8px;background:#e8ebef;border-radius:8px;overflow:hidden;margin-top:6px}.wrongbar i{display:block;height:100%;background:#7b8794}@media(max-width:600px){.statgrid{grid-template-columns:repeat(2,1fr)}}</style></head><body><header><div class='title'>1학년 국어공부</div><div class='ver'>V1.3 · 초등학교 1학년 국어 수업 · 엄마가 만든 공부</div></header><main class='wrap'>
-<section id='home' class='screen on'><div class='panel'><div class='small'>오늘의 국어 수업</div><div class='q' style='margin-bottom:4px'>차례대로 공부해 봅시다.</div><p style='color:#666;margin-top:0'>문제를 읽고 생각한 뒤 가장 알맞은 답을 선택하세요.</p></div><div class='home'>
-<div class='card full' onclick="openS('dictation')"><div class='small'>1교시</div><h2>① 받아쓰기</h2><p>문장을 정확히 듣고 맞춤법과 띄어쓰기가 바른 문장을 선택합니다.</p></div>
-<div class='card' onclick="openS('word')"><div class='small'>2교시</div><h2>② 낱말</h2><p>낱말의 뜻과 쓰임을 문장 속에서 정확하게 익힙니다.</p></div>
-<div class='card' onclick="openS('sentence')"><div class='small'>3교시</div><h2>③ 문장 이해</h2><p>문장을 읽고 내용과 까닭, 순서를 정확하게 파악합니다.</p></div>
-<div class='card' onclick="openS('reading')"><div class='small'>4교시</div><h2>④ 짧은 글 읽기</h2><p>짧은 글을 읽고 중요한 내용과 글의 뜻을 생각합니다.</p></div>
-<div class='card' onclick="openS('expression')"><div class='small'>5교시</div><h2>⑤ 표현하기</h2><p>상황에 가장 알맞고 자연스러운 표현을 선택합니다.</p></div>
-<div class='card full' onclick="openCustomHome()"><div class='small'>맞춤 학습</div><h2>엄마가 만든 공부</h2><p>엄마가 등록한 받아쓰기 문제를 반복해서 공부하고 틀린 문제를 다시 학습합니다.</p></div>
-<div class='card full' onclick="openParent()"><div class='small'>부모님</div><h2>부모님 학습관리</h2><p>문제 등록·수정·삭제, 공부 횟수, 최근 성적과 많이 틀린 문제를 확인합니다.</p></div>
-</div><p class='note'>국어 V1.3 · 정식 수업형입니다. 엄마가 문제를 등록하면 반복 학습하고, 부모님 화면에서 성적과 오답을 확인할 수 있습니다.</p></section>
-<section id='word' class='screen'><button class='btn alt navback' onclick='home()'>← 처음으로</button><div id='wordBox'></div></section>
-<section id='sentence' class='screen'><button class='btn alt navback' onclick='home()'>← 처음으로</button><div id='sentenceBox'></div></section>
-<section id='reading' class='screen'><button class='btn alt navback' onclick='home()'>← 처음으로</button><div id='readingBox'></div></section>
-<section id='expression' class='screen'><button class='btn alt navback' onclick='home()'>← 처음으로</button><div id='expressionBox'></div></section>
-<section id='dictation' class='screen'><button class='btn alt navback' onclick='home()'>← 처음으로</button><div id='dictBox'></div></section>
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="국어">
+<link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><title>1학년 국어공부 V1.4</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;margin:0;background:#f6f7f9;color:#172033}
+header{background:white;padding:22px;position:sticky;top:0;border-bottom:1px solid #ddd;z-index:2}.wrap{max-width:820px;margin:auto;padding:18px}
+h1{margin:0;font-size:27px}.sub{color:#667085;margin-top:6px}.card{background:white;border:1px solid #e3e6eb;border-radius:16px;padding:20px;margin:14px 0}
+button{font:inherit;border:0;border-radius:12px;padding:13px 16px;background:#234b7b;color:white;font-weight:700;margin:5px;cursor:pointer}
+button.secondary{background:#e9eef5;color:#234b7b}.choice{display:block;width:100%;text-align:left;background:#fff;color:#172033;border:2px solid #d7dce3;margin:10px 0}
+input,textarea{box-sizing:border-box;width:100%;font:inherit;padding:12px;border:1px solid #cfd5dd;border-radius:10px;margin:6px 0 12px}
+textarea{min-height:160px}.big{font-size:22px;line-height:1.65}.score{font-size:34px;font-weight:800}.ok{background:#e9f7ee;border-color:#7ac594}.bad{background:#fff0ef;border-color:#e28a83}
+nav button{background:#eef2f6;color:#243b53}.hidden{display:none}.pill{display:inline-block;background:#eef2f6;border-radius:999px;padding:6px 10px;margin:3px;font-size:14px}
+table{width:100%;border-collapse:collapse}td,th{padding:9px;border-bottom:1px solid #eee;text-align:left}
+</style></head><body>
+<header><div class="wrap"><h1>1학년 국어공부 <small>V1.4</small></h1><div class="sub">차분하게 읽고, 듣고, 생각하는 국어 수업</div></div></header>
+<main class="wrap">
+<section id="home">
+<div class="card"><h2>오늘의 수업</h2><p>한 번의 받아쓰기 시험은 <b>10문제</b>입니다. 최근 문제를 피해서 가능한 한 새로운 문제가 먼저 출제됩니다.</p>
+<button onclick="startDictation(false)">① 받아쓰기 시작</button>
+<button class="secondary" onclick="show('momStudy')">엄마가 만든 공부</button></div>
+<div class="card"><h2>다른 국어 수업</h2><p>② 낱말　③ 문장 이해　④ 짧은 글 읽기　⑤ 표현하기</p><p class="sub">기존 수업 영역은 유지하며 받아쓰기와 부모님 학습관리를 먼저 강화하고 있습니다.</p></div>
+<div class="card"><h2>부모님</h2><button class="secondary" onclick="show('parent')">부모님 학습관리</button></div>
+</section>
 
-<section id='customHome' class='screen'><button class='btn alt navback' onclick='home()'>← 처음으로</button><div id='customHomeBox'></div></section>
-<section id='customStudy' class='screen'><button class='btn alt navback' onclick='openCustomHome()'>← 문제 묶음</button><div id='customStudyBox'></div></section>
-<section id='parent' class='screen'><button class='btn alt navback' onclick='home()'>← 처음으로</button><div id='parentBox'></div></section>
-<section id='parentSet' class='screen'><button class='btn alt navback' onclick='openParent()'>← 학습관리</button><div id='parentSetBox'></div></section>
-</main><script>
-const sets={word:[
-{q:'“아쉬워하다”와 가장 잘 어울리는 문장은 무엇일까요?',c:['숙제를 모두 끝내서 아쉬워했어요.','친구와 더 놀고 싶었지만 헤어져서 아쉬워했어요.','배가 고파서 밥을 맛있게 먹으며 아쉬워했어요.'],a:1,e:'아쉬워하다는 원하는 대로 되지 않거나 헤어져서 섭섭한 마음이 들 때 쓰는 말이에요.'},
-{q:'“서두르다”의 뜻과 가장 가까운 것은 무엇일까요?',c:['천천히 쉬다','빨리 하려고 급하게 움직이다','조용히 기다리다'],a:1,e:'서두르다는 어떤 일을 빨리 하려고 급하게 움직이는 것을 말해요.'},
-{q:'“살펴보다”와 가장 잘 어울리는 행동은 무엇일까요?',c:['책의 그림을 자세히 보다','눈을 감고 잠을 자다','큰 소리로 노래하다'],a:0,e:'살펴보다는 자세히 주의하여 보는 뜻이에요.'}],
-sentence:[
-{q:'“비가 많이 와서 운동장에서 놀지 못했습니다.” 이 문장에서 놀지 못한 까닭은 무엇인가요?',c:['운동장이 멀어서','비가 많이 와서','친구가 없어서'],a:1,e:'“~해서” 앞부분에서 까닭을 찾을 수 있어요.'},
-{q:'“민수는 도서관에서 빌린 책을 다 읽고 반납했습니다.” 민수가 반납한 것은 무엇인가요?',c:['도서관','빌린 책','가방'],a:1,e:'문장에서 행동과 그 대상을 정확히 찾아보면 돼요.'},
-{q:'“나는 목이 말라서 물을 한 컵 마셨습니다.” 먼저 일어난 일은 무엇인가요?',c:['목이 말랐습니다.','물을 마셨습니다.','컵을 씻었습니다.'],a:0,e:'목이 말랐기 때문에 그 다음에 물을 마셨어요.'}],
-reading:[
-{pass:'아침에 창문을 열었더니 나뭇잎이 흔들리고 있었습니다. 밖에 나가 보니 시원한 바람이 불었습니다. 나는 겉옷을 하나 챙겨 학교에 갔습니다.',q:'글 속의 나는 왜 겉옷을 챙겼을까요?',c:['비가 많이 와서','바람이 불고 날씨가 시원해서','학교가 멀어서'],a:1,e:'나뭇잎이 흔들리고 시원한 바람이 불었다는 내용을 근거로 생각할 수 있어요.'},
-{pass:'수아는 화분의 흙이 말라 있는 것을 보았습니다. 물뿌리개에 물을 담아 화분에 천천히 주었습니다. 다음 날 잎이 한결 싱싱해 보였습니다.',q:'수아가 화분에 물을 준 까닭은 무엇인가요?',c:['흙이 말라 있었기 때문에','화분을 옮기기 위해','잎을 닦기 위해'],a:0,e:'첫 문장의 “흙이 말라 있는 것”이 수아의 행동과 연결됩니다.'}],
-expression:[
-{q:'친구가 그림을 아주 정성껏 완성했습니다. 가장 자연스러운 말은 무엇일까요?',c:['그림을 참 꼼꼼하게 그렸구나.','그림이 아주 시끄럽구나.','그림을 빨리 먹었구나.'],a:0,e:'상황과 말의 뜻이 자연스럽게 어울리는지를 생각해 보세요.'},
-{q:'친구가 빌려준 연필을 돌려줄 때 가장 알맞은 말은?',c:['빌려줘서 고마워. 잘 썼어.','연필이 왜 이렇게 길어?','나는 이제 집에 갈 거야.'],a:0,e:'도움을 받은 상황에서는 고마운 마음을 알맞게 표현할 수 있어요.'}]
-};
-let idx={word:0,sentence:0,reading:0,expression:0};
-function openS(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('on'));document.getElementById(id).classList.add('on');if(id==='dictation'){d=0;dscore=0;loadD()}else render(id)}
-function home(){speechSynthesis.cancel();document.querySelectorAll('.screen').forEach(x=>x.classList.remove('on'));document.getElementById('home').classList.add('on')}
-function render(type){let arr=sets[type],i=idx[type]%arr.length,o=arr[i],box=document.getElementById(type+'Box');box.innerHTML=`<div class='panel'><div class='progress'>${i+1} / ${arr.length}</div>${o.pass?`<div class='reading'>${o.pass}</div>`:''}<div class='q'>${o.q}</div><div id='choices'>${o.c.map((x,j)=>`<button class='choice' onclick="pick('${type}',${j})">${j+1}. ${x}</button>`).join('')}</div><div id='fb' class='feedback'></div></div>`}
-function pick(type,j){let arr=sets[type],i=idx[type]%arr.length,o=arr[i],bs=[...document.querySelectorAll('#choices .choice')];bs.forEach(b=>b.disabled=true);bs[o.a].classList.add('ok');if(j!==o.a)bs[j].classList.add('no');document.getElementById('fb').innerHTML=(j===o.a?'✓ 맞았습니다. ':'다시 살펴볼까요? ')+o.e+`<div style='margin-top:15px'><button class='btn' onclick="next('${type}')">다음 →</button></div>`}
-function next(type){idx[type]=(idx[type]+1)%sets[type].length;render(type)}
-const dict=[
-{t:'오늘은 하늘이 참 맑습니다.',c:['오늘은 하늘이 참 맑습니다.','오늘은 하늘이 참 많습니다.','오늘은 하늘을 참 맑습니다.'],a:0},
-{t:'친구와 함께 학교에 갑니다.',c:['친구와 함께 학교에 감니다.','친구와 함께 학교에 갑니다.','친구와 함게 학교에 갑니다.'],a:1},
-{t:'꽃밭에 예쁜 나비가 날아왔습니다.',c:['꽃밭에 예쁜 나비가 날아왔습니다.','꽃밭에 예쁜 나비가 나라왔습니다.','꽃밭에 예쁜 나비가 날아 왔습니다.'],a:0},
-{t:'책을 읽고 제자리에 놓았습니다.',c:['책을 읽고 제자리에 놓았습니다.','책을 읽고 제자리에 노았습니다.','책을 일고 제자리에 놓았습니다.'],a:0},
-{t:'동생에게 재미있는 이야기를 들려주었습니다.',c:['동생에게 재미있는 이야기를 들려주었습니다.','동생에게 재미있는 이야기를 들려 주었습니다.','동생에게 재미있는 이야기를 들여주었습니다.'],a:0}
-];let d=0,dscore=0;
-function say(t){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='ko-KR';u.rate=.82;u.pitch=1;speechSynthesis.speak(u)}
-function speakDict(){say(dict[d].t)}
-function loadD(){let o=dict[d],box=document.getElementById('dictBox');box.innerHTML=`<div class='panel'><div class='progress'>1교시 · 받아쓰기 ${d+1} / ${dict.length}</div><div class='q'>문장을 잘 듣고, 들은 내용과 정확히 같은 문장을 고르세요.</div><div class='row' style='margin-bottom:16px'><button class='btn speak' onclick='speakDict()'>🔊 문제 듣기</button><button class='btn alt' onclick='speakDict()'>🔊 다시 듣기</button></div><div id='dchoices'>${o.c.map((x,j)=>`<button class='choice' onclick='pickD(${j})'>${j+1}. ${x}</button>`).join('')}</div><div id='dfb' class='feedback'></div></div>`;setTimeout(speakDict,250)}
-function pickD(j){let o=dict[d],bs=[...document.querySelectorAll('#dchoices .choice')];bs.forEach(b=>b.disabled=true);bs[o.a].classList.add('ok');if(j===o.a){dscore++;document.getElementById('dfb').innerHTML=`✓ 맞았습니다. 들은 문장과 글자가 정확히 같습니다.<div style='margin-top:15px'><button class='btn' onclick='nextD()'>다음 →</button></div>`}else{bs[j].classList.add('no');document.getElementById('dfb').innerHTML=`다시 살펴보세요. 정답은 <b>${o.c[o.a]}</b> 입니다.<div style='margin-top:15px'><button class='btn' onclick='nextD()'>다음 →</button></div>`}}
-function nextD(){d++;if(d>=dict.length){document.getElementById('dictBox').innerHTML=`<div class='panel'><div class='result'>받아쓰기 완료!</div><p style='font-size:20px'>맞은 문제: ${dscore} / ${dict.length}</p><p>문장을 듣고 맞춤법과 띄어쓰기가 정확한 예문을 찾는 연습입니다.</p><div class='row' style='margin-top:16px'><button class='btn' onclick='d=0;dscore=0;loadD()'>다시 하기</button><button class='btn alt' onclick='home()'>처음으로</button></div></div>`;return}loadD()}
+<section id="quiz" class="hidden"><div class="card">
+<div id="qmeta" class="sub"></div><h2>🔊 받아쓰기</h2><button onclick="speakCurrent()">문제 듣기</button>
+<p>들은 문장과 정확히 같은 문장을 고르세요.</p><div id="choices"></div><div id="feedback"></div>
+</div></section>
 
-const CUSTOM_KEY='korean_v13_custom_sets';
-function getSets(){try{return JSON.parse(localStorage.getItem(CUSTOM_KEY)||'[]')}catch(e){return[]}}
-function saveSets(x){localStorage.setItem(CUSTOM_KEY,JSON.stringify(x))}
-function showScreen(id){speechSynthesis.cancel();document.querySelectorAll('.screen').forEach(x=>x.classList.remove('on'));document.getElementById(id).classList.add('on')}
-function esc(x){return String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function seedCustom(){let x=getSets();if(x.length)return;saveSets([{id:Date.now(),name:'연습용 받아쓰기',questions:[{id:1,t:'비가 그치고 무지개가 떴습니다.',wrong:['비가 그치고 무지게가 떴습니다.','비가 그치고 무지개가 떳습니다.','비가그치고 무지개가 떴습니다.'],tries:0,correct:0,wrongCount:0,recent:[]}],sessions:[]}])}
-seedCustom();
-function openCustomHome(){showScreen('customHome');let sets=getSets(),box=document.getElementById('customHomeBox');box.innerHTML=`<div class='panel'><div class='small'>맞춤 학습</div><div class='q'>엄마가 만든 공부</div><p>공부할 문제 묶음을 선택하세요. 같은 문제를 여러 번 공부해도 기록은 계속 쌓입니다.</p></div>${sets.length?sets.map(s=>`<div class='panel'><div class='setrow'><div><b style='font-size:20px'>${esc(s.name)}</b><div class='small'>${s.questions.length}문제 · 공부 ${s.sessions.length}회</div></div><button class='btn' onclick='startCustom(${s.id},false)'>전체 공부</button></div>${s.questions.some(q=>q.wrongCount>0)?`<button class='btn alt' onclick='startCustom(${s.id},true)'>틀린 문제만 다시 공부</button>`:''}</div>`).join(''):`<div class='panel'>아직 엄마가 등록한 문제가 없습니다.</div>`}`}
-let cs=null, cq=[], ci=0, cscore=0, cwrong=[];
-function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-function startCustom(id,wrongOnly){let s=getSets().find(x=>x.id===id);if(!s)return;let qs=wrongOnly?s.questions.filter(q=>q.wrongCount>0):s.questions;if(!qs.length)return alert('다시 공부할 틀린 문제가 없습니다.');cs=id;cq=shuffle(qs.map(q=>q.id));ci=0;cscore=0;cwrong=[];showScreen('customStudy');loadCustom()}
-function loadCustom(){let s=getSets().find(x=>x.id===cs),q=s.questions.find(x=>x.id===cq[ci]);let opts=shuffle([{v:q.t,ok:true},...q.wrong.map(v=>({v,ok:false}))]);document.getElementById('customStudyBox').innerHTML=`<div class='panel'><div class='progress'>${esc(s.name)} · ${ci+1} / ${cq.length}</div><div class='q'>문장을 잘 듣고 정확히 같은 문장을 고르세요.</div><div class='row' style='margin-bottom:16px'><button class='btn speak' onclick='say(${JSON.stringify(q.t)})'>🔊 문제 듣기</button><button class='btn alt' onclick='say(${JSON.stringify(q.t)})'>🔊 다시 듣기</button></div><div id='cc'>${opts.map((o,j)=>`<button class='choice' data-ok='${o.ok?1:0}' onclick='pickCustom(this,${q.id})'>${j+1}. ${esc(o.v)}</button>`).join('')}</div><div id='cfb' class='feedback'></div></div>`;setTimeout(()=>say(q.t),250)}
-function pickCustom(btn,qid){let sets=getSets(),s=sets.find(x=>x.id===cs),q=s.questions.find(x=>x.id===qid),ok=btn.dataset.ok==='1';document.querySelectorAll('#cc .choice').forEach(b=>{b.disabled=true;if(b.dataset.ok==='1')b.classList.add('ok')});q.tries++;if(ok){q.correct++;cscore++}else{q.wrongCount++;btn.classList.add('no');cwrong.push(qid)}q.recent=(q.recent||[]);q.recent.push(ok?1:0);q.recent=q.recent.slice(-3);saveSets(sets);document.getElementById('cfb').innerHTML=(ok?'✓ 맞았습니다.':`다시 살펴보세요. 정답은 <b>${esc(q.t)}</b> 입니다.`)+`<div style='margin-top:15px'><button class='btn' onclick='nextCustom()'>다음 →</button></div>`}
-function nextCustom(){ci++;if(ci<cq.length)return loadCustom();let sets=getSets(),s=sets.find(x=>x.id===cs),pct=Math.round(cscore/cq.length*100);s.sessions.push({at:new Date().toISOString(),score:cscore,total:cq.length,pct});s.sessions=s.sessions.slice(-30);saveSets(sets);document.getElementById('customStudyBox').innerHTML=`<div class='panel'><div class='result'>공부를 마쳤습니다.</div><p style='font-size:22px'>${cscore} / ${cq.length} · <b>${pct}점</b></p><p>${cwrong.length?'틀린 문제는 부모님 학습관리와 틀린 문제 다시 공부에 반영되었습니다.':'모든 문제를 맞혔습니다.'}</p><div class='row'><button class='btn' onclick='startCustom(${cs},false)'>한 번 더 공부</button><button class='btn alt' onclick='openCustomHome()'>문제 묶음으로</button></div></div>`}
-function openParent(){showScreen('parent');renderParent()}
-function renderParent(){let sets=getSets(),allSessions=sets.flatMap(s=>s.sessions),total=allSessions.length,last=allSessions.length?allSessions[allSessions.length-1].pct:'-';let allQ=sets.flatMap(s=>s.questions),wrong=[...allQ].sort((a,b)=>b.wrongCount-a.wrongCount).filter(q=>q.wrongCount>0).slice(0,5);document.getElementById('parentBox').innerHTML=`<div class='panel'><div class='small'>부모님 학습관리</div><div class='q'>학습 현황</div><div class='statgrid'><div class='stat'>문제 묶음<b>${sets.length}</b></div><div class='stat'>총 공부 횟수<b>${total}</b></div><div class='stat'>최근 성적<b>${last==='-'?'-':last+'점'}</b></div><div class='stat'>등록 문제<b>${allQ.length}</b></div></div></div><div class='panel'><div class='row' style='justify-content:space-between'><h2 style='margin:0'>문제 묶음</h2><button class='btn' onclick='editSet()'>+ 새 문제 묶음</button></div>${sets.map(s=>`<div class='setrow'><div><b>${esc(s.name)}</b><div class='small'>${s.questions.length}문제 · ${s.sessions.length}회 학습</div></div><button class='btn alt' onclick='editSet(${s.id})'>관리</button></div>`).join('')||'<p>등록된 문제가 없습니다.</p>'}</div><div class='panel'><h2>많이 틀린 문제</h2>${wrong.length?wrong.map(q=>`<div style='margin:14px 0'><b>${esc(q.t)}</b><div class='mini'>${q.tries}회 시도 · ${q.wrongCount}회 틀림 · 최근 3회 ${recentText(q.recent)}</div><div class='wrongbar'><i style='width:${Math.min(100,q.tries?q.wrongCount/q.tries*100:0)}%'></i></div></div>`).join(''):'<p>아직 오답 기록이 없습니다.</p>'}</div>`}
-function recentText(r=[]){return r.length?r.map(x=>x?'○':'×').join(' '):'-'}
-function editSet(id){showScreen('parentSet');let s=id?getSets().find(x=>x.id===id):null;document.getElementById('parentSetBox').innerHTML=`<div class='panel'><div class='small'>문제 묶음 관리</div><div class='q'>${s?'문제 수정':'새 문제 묶음'}</div><div class='field'><label>문제 묶음 이름</label><input id='setName' class='input' value='${s?esc(s.name):''}' placeholder='예: 10월 1주 받아쓰기'></div><button class='btn' onclick='saveSetName(${s?s.id:'null'})'>${s?'이름 저장':'묶음 만들기'}</button>${s?`<button class='btn warn' style='margin-left:8px' onclick='deleteSet(${s.id})'>묶음 삭제</button>`:''}</div>${s?renderSetDetail(s):''}`}
-function saveSetName(id){let name=document.getElementById('setName').value.trim();if(!name)return alert('문제 묶음 이름을 입력해주세요.');let sets=getSets();if(id){sets.find(x=>x.id===id).name=name}else{id=Date.now();sets.push({id,name,questions:[],sessions:[]})}saveSets(sets);editSet(id)}
-function renderSetDetail(s){let hist=s.sessions.slice(-10).reverse();return `<div class='panel'><h2>문제 추가</h2><div class='field'><label>정답 문장</label><input id='qt' class='input' placeholder='예: 친구와 함께 학교에 갑니다.'></div><div class='field'><label>비슷한 오답 1</label><input id='qw1' class='input'></div><div class='field'><label>비슷한 오답 2</label><input id='qw2' class='input'></div><div class='field'><label>비슷한 오답 3</label><input id='qw3' class='input'></div><button class='btn' onclick='addQuestion(${s.id})'>문제 추가</button></div><div class='panel'><h2>등록 문제 (${s.questions.length})</h2>${s.questions.map((q,i)=>`<div class='setrow'><div><b>${i+1}. ${esc(q.t)}</b><div class='mini'>시도 ${q.tries} · 정답 ${q.correct} · 오답 ${q.wrongCount} · 최근 ${recentText(q.recent)}</div></div><div class='row'><button class='btn alt' onclick='loadQuestionEdit(${s.id},${q.id})'>수정</button><button class='btn warn' onclick='deleteQuestion(${s.id},${q.id})'>삭제</button></div></div>`).join('')||'<p>아직 문제가 없습니다.</p>'}</div><div class='panel'><h2>최근 성적</h2><div class='history'>${hist.length?hist.map(h=>`<span class='scorechip'>${h.pct}점</span>`).join(''):'아직 학습 기록이 없습니다.'}</div></div>`}
-function addQuestion(sid){let t=document.getElementById('qt').value.trim(),w=[1,2,3].map(i=>document.getElementById('qw'+i).value.trim()).filter(Boolean);if(!t||w.length<2)return alert('정답 문장과 비슷한 오답을 2개 이상 입력해주세요.');let sets=getSets(),s=sets.find(x=>x.id===sid);s.questions.push({id:Date.now(),t,wrong:w,tries:0,correct:0,wrongCount:0,recent:[]});saveSets(sets);editSet(sid)}
-function loadQuestionEdit(sid,qid){let sets=getSets(),s=sets.find(x=>x.id===sid),q=s.questions.find(x=>x.id===qid);document.getElementById('qt').value=q.t;[1,2,3].forEach((n,i)=>document.getElementById('qw'+n).value=q.wrong[i]||'');let b=[...document.querySelectorAll('#parentSetBox button')].find(x=>x.textContent==='문제 추가');b.textContent='수정 저장';b.onclick=()=>saveQuestionEdit(sid,qid);document.getElementById('qt').scrollIntoView({behavior:'smooth'})}
-function saveQuestionEdit(sid,qid){let t=document.getElementById('qt').value.trim(),w=[1,2,3].map(i=>document.getElementById('qw'+i).value.trim()).filter(Boolean);if(!t||w.length<2)return alert('정답 문장과 오답을 2개 이상 입력해주세요.');let sets=getSets(),q=sets.find(x=>x.id===sid).questions.find(x=>x.id===qid);q.t=t;q.wrong=w;saveSets(sets);editSet(sid)}
-function deleteQuestion(sid,qid){if(!confirm('이 문제와 학습 기록을 삭제할까요?'))return;let sets=getSets(),s=sets.find(x=>x.id===sid);s.questions=s.questions.filter(x=>x.id!==qid);saveSets(sets);editSet(sid)}
-function deleteSet(sid){if(!confirm('문제 묶음과 모든 학습 기록을 삭제할까요?'))return;saveSets(getSets().filter(x=>x.id!==sid));openParent()}
+<section id="result" class="hidden"><div class="card"><h2>시험 결과</h2><div id="score" class="score"></div><div id="resultDetail"></div>
+<button onclick="show('home')">수업 홈</button><button class="secondary" id="retryWrong">틀린 문제 다시 공부</button></div></section>
+
+<section id="momStudy" class="hidden"><div class="card"><h2>엄마가 만든 공부</h2><div id="sets"></div>
+<button class="secondary" onclick="show('home')">돌아가기</button></div></section>
+
+<section id="parent" class="hidden">
+<div class="card"><h2>문제 묶음 만들기</h2>
+<label>묶음 이름</label><input id="setName" placeholder="예: 10월 1주 받아쓰기">
+<label>정답 문장 입력</label><p class="sub">정답만 입력하세요. 한 줄에 한 문장씩 여러 문제를 한꺼번에 넣을 수 있습니다. 오답 보기는 자동으로 만듭니다.</p>
+<textarea id="bulk" placeholder="친구와 함께 학교에 갑니다.&#10;맑은 하늘을 바라보았습니다.&#10;꽃이 활짝 피었습니다."></textarea>
+<button onclick="saveSet()">문제 묶음 저장</button></div>
+<div class="card"><h2>학습 현황</h2><div id="stats"></div></div>
+<button class="secondary" onclick="show('home')">수업 홈</button></section>
+</main>
+<script>
+const BANK = [
+"오늘은 하늘이 참 맑습니다.","친구와 함께 학교에 갑니다.","꽃이 활짝 피었습니다.","강아지가 마당에서 뛰어놉니다.",
+"나는 책을 재미있게 읽었습니다.","비가 와서 우산을 썼습니다.","아침에 이를 깨끗이 닦았습니다.","동생과 사이좋게 놀았습니다.",
+"선생님의 말씀을 잘 들었습니다.","창문을 열어 맑은 공기를 마셨습니다.","나무에 초록 잎이 돋았습니다.","운동장에서 공을 힘껏 찼습니다.",
+"따뜻한 햇볕이 창문으로 들어옵니다.","할머니께 반갑게 인사드렸습니다.","가방에 연필과 공책을 넣었습니다.","우리 반 친구들은 서로 도와줍니다.",
+"저녁에 가족과 함께 밥을 먹었습니다.","길을 건널 때에는 좌우를 살핍니다.","작은 새가 나뭇가지에 앉았습니다.","봄바람이 살랑살랑 불어옵니다.",
+"나는 약속 시간을 꼭 지킵니다.","동생이 장난감을 가지런히 정리했습니다.","교실에서는 조용한 목소리로 말합니다.","맛있는 냄새가 부엌에서 납니다.",
+"아버지와 공원에서 자전거를 탔습니다.","비가 그치고 무지개가 나타났습니다.","친구에게 고맙다고 말했습니다.","도서관에서 읽고 싶은 책을 골랐습니다.",
+"추운 날에는 따뜻한 옷을 입습니다.","학교가 끝난 뒤 집으로 돌아왔습니다.","고양이가 창가에서 졸고 있습니다.","연못에서 물고기가 헤엄칩니다.",
+"나는 모르는 낱말을 사전에서 찾아봅니다.","바람에 나뭇잎이 흔들립니다.","오늘 해야 할 일을 공책에 적었습니다.","친구의 이야기를 끝까지 들었습니다.",
+"깨끗이 씻은 손으로 간식을 먹었습니다.","아침 해가 산 위로 떠올랐습니다.","책상 위에 책을 가지런히 놓았습니다.","즐거운 마음으로 노래를 불렀습니다.",
+"우리 가족은 주말에 산책을 합니다.","학교 앞 횡단보도에서 신호를 기다립니다.","새 운동화를 신고 천천히 걸었습니다.","동생에게 재미있는 이야기를 들려주었습니다.",
+"마당에 하얀 눈이 소복이 쌓였습니다.","나는 잘못한 일을 솔직하게 말했습니다.","친구와 차례를 지키며 놀이했습니다.","오늘 배운 내용을 집에서 다시 읽었습니다.",
+"예쁜 나비가 꽃밭을 날아다닙니다.","어머니께서 맛있는 과일을 깎아 주셨습니다.",
+"물건을 사용한 뒤에는 제자리에 놓습니다.","밤하늘에 반짝이는 별이 보입니다.","선물을 받고 기쁜 마음이 들었습니다.","넘어진 친구에게 손을 내밀었습니다.",
+"비 오는 날에는 길이 미끄럽습니다.","나는 매일 아침 스스로 이불을 갭니다.","교실 창문으로 시원한 바람이 들어옵니다.","친구와 생각이 달라도 이야기를 잘 듣습니다.",
+"공원에 여러 가지 색깔의 꽃이 피었습니다.","책을 읽고 가장 재미있는 장면을 이야기했습니다."
+];
+let current=[], idx=0, answers=[], mode="bank", activeSet=null;
+const key="koreanV14";
+let db=JSON.parse(localStorage.getItem(key)||'{"sets":[],"history":[],"recentBank":[]}');
+function persist(){localStorage.setItem(key,JSON.stringify(db))}
+function show(id){document.querySelectorAll("main>section").forEach(x=>x.classList.add("hidden"));document.getElementById(id).classList.remove("hidden");if(id==="parent")renderStats();if(id==="momStudy")renderSets()}
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function makeWrong(s){
+ const outs=[];
+ const rules=[
+  x=>x.replace(/함께/g,"함게").replace(/깨끗/g,"깨끋").replace(/읽/g,"익").replace(/맑/g,"막"),
+  x=>x.replace(/ ([가-힣]+)(에|에서|으로|와|과|을|를|이|가) /," $1$2").replace(/학교에 /,"학교에").replace(/뒤에는 /,"뒤에는"),
+  x=>x.replace(/습니다/g,"슴니다").replace(/했습니다/g,"햇습니다").replace(/있습니다/g,"잇습니다"),
+  x=>x.replace(/띄어/g,"띠어").replace(/끝까지/g,"끋까지").replace(/꽃/g,"꼳").replace(/낱말/g,"낟말"),
+  x=>x.replace(/사이좋게/g,"사이 조케").replace(/고맙다고/g,"고맙 다고").replace(/제자리에/g,"제 자리에")
+ ];
+ for(const f of shuffle(rules)){let w=f(s);if(w!==s&&!outs.includes(w))outs.push(w);if(outs.length===3)break}
+ while(outs.length<3){let p=s.replace(/ /, outs.length%2?"":""); if(p===s||outs.includes(p)) p=s.replace(/[.!?]$/,""); if(!outs.includes(p)&&p!==s)outs.push(p); else outs.push("다시 잘 듣고 문장을 살펴보세요 "+(outs.length+1));}
+ return outs.slice(0,3)
+}
+function startDictation(wrongOnly){
+ mode="bank"; activeSet=null;
+ let candidates=BANK.filter(x=>!db.recentBank.includes(x));
+ if(candidates.length<10){db.recentBank=[];candidates=[...BANK]}
+ current=shuffle(candidates).slice(0,10).map(t=>({text:t,wrong:makeWrong(t)}));
+ db.recentBank=[...db.recentBank,...current.map(x=>x.text)].slice(-40);persist(); begin();
+}
+function startSet(i, wrongOnly=false){
+ mode="mom";activeSet=i;let set=db.sets[i];let items=set.items;
+ if(wrongOnly){let bad=new Set((set.itemStats||[]).map((s,j)=>s.wrong>0&&(!s.last3||s.last3.slice(-3).includes(0))?j:-1));items=items.filter((_,j)=>bad.has(j));}
+ if(!items.length){alert("다시 공부할 오답이 없습니다.");return}
+ current=shuffle(items).slice(0,10); begin();
+}
+function begin(){idx=0;answers=[];show("quiz");renderQ();setTimeout(speakCurrent,300)}
+function renderQ(){
+ let q=current[idx];document.getElementById("qmeta").textContent=`${idx+1} / ${current.length}`;
+ let opts=shuffle([q.text,...q.wrong]);document.getElementById("choices").innerHTML=opts.map(o=>`<button class="choice" onclick='pick(${JSON.stringify(o)})'>${o}</button>`).join("");
+ document.getElementById("feedback").innerHTML="";
+}
+function speakCurrent(){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(current[idx].text);u.lang="ko-KR";u.rate=.82;speechSynthesis.speak(u)}
+function pick(o){let ok=o===current[idx].text;answers.push({text:current[idx].text,ok});document.getElementById("feedback").innerHTML=ok?'<p class="ok card">정답입니다.</p>':`<div class="bad card">다시 살펴보세요.<br><b>정답: ${current[idx].text}</b></div>`;setTimeout(()=>{idx++;idx<current.length?renderQ():finish()},650)}
+function finish(){
+ let n=answers.filter(x=>x.ok).length, score=Math.round(n/answers.length*100), rec={date:new Date().toLocaleString(),mode,set:activeSet,score,total:answers.length,answers};
+ db.history.push(rec);
+ if(mode==="mom"&&activeSet!==null){let s=db.sets[activeSet];s.studyCount=(s.studyCount||0)+1;s.scores=(s.scores||[]).concat(score).slice(-20);s.itemStats=s.itemStats||s.items.map(()=>({try:0,correct:0,wrong:0,last3:[]}));answers.forEach(a=>{let j=s.items.findIndex(x=>x.text===a.text);if(j>=0){let st=s.itemStats[j];st.try++;a.ok?st.correct++:st.wrong++;st.last3=(st.last3||[]).concat(a.ok?1:0).slice(-3)}})}
+ persist();show("result");document.getElementById("score").textContent=`${score}점 (${n}/${answers.length})`;let bad=answers.filter(x=>!x.ok);document.getElementById("resultDetail").innerHTML=bad.length?`<h3>다시 볼 문장</h3>${bad.map(x=>`<p>• ${x.text}</p>`).join("")}`:"<p>모두 맞았습니다.</p>";document.getElementById("retryWrong").onclick=()=>{current=bad.map(x=>({text:x.text,wrong:makeWrong(x.text)}));current.length?begin():show("home")}
+}
+function saveSet(){
+ let name=document.getElementById("setName").value.trim()||"엄마가 만든 받아쓰기";let lines=document.getElementById("bulk").value.split("\n").map(x=>x.trim()).filter(Boolean);
+ if(!lines.length){alert("정답 문장을 한 문장 이상 입력해주세요.");return}
+ let items=lines.map(text=>({text,wrong:makeWrong(text)}));db.sets.push({name,items,studyCount:0,scores:[],itemStats:items.map(()=>({try:0,correct:0,wrong:0,last3:[]}))});persist();document.getElementById("setName").value="";document.getElementById("bulk").value="";alert(`${lines.length}문제가 저장되었습니다. 비슷한 오답 보기도 자동으로 만들었습니다.`);renderStats()
+}
+function renderSets(){
+ let e=document.getElementById("sets");if(!db.sets.length){e.innerHTML="<p>아직 엄마가 만든 문제 묶음이 없습니다.</p>";return}
+ e.innerHTML=db.sets.map((s,i)=>`<div class="card"><h3>${s.name}</h3><p>${s.items.length}문제 · 공부 ${s.studyCount||0}회</p><button onclick="startSet(${i})">공부 시작</button><button class="secondary" onclick="startSet(${i},true)">틀린 문제만</button></div>`).join("")
+}
+function renderStats(){
+ let e=document.getElementById("stats");if(!db.sets.length){e.innerHTML="<p>엄마가 만든 문제를 저장하면 이곳에 기록이 표시됩니다.</p>";return}
+ e.innerHTML=db.sets.map((s,i)=>{
+ let stats=s.itemStats||[];let hard=stats.map((x,j)=>({j,w:x.wrong||0,last:(x.last3||[])})).filter(x=>x.w>0).sort((a,b)=>b.w-a.w).slice(0,5);
+ return `<div class="card"><h3>${s.name}</h3><p><span class="pill">공부 ${s.studyCount||0}회</span><span class="pill">최근 성적 ${(s.scores||[]).slice(-5).join(" → ")||"-"}${s.scores?.length?"점":""}</span></p><h4>많이 틀린 문제</h4>${hard.length?hard.map(x=>`<p>${s.items[x.j].text}<br><small>오답 ${x.w}회 · 최근 3회 ${x.last.map(v=>v?"○":"×").join(" ")||"-"}</small></p>`).join(""):"<p>아직 오답 기록이 없습니다.</p>"}<button class="secondary" onclick="if(confirm('이 문제 묶음을 삭제할까요?')){db.sets.splice(${i},1);persist();renderStats()}">묶음 삭제</button></div>`
+ }).join("")
+}
 </script></body></html>
