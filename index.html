@@ -5,7 +5,7 @@
 .reviewChar{display:inline-block;padding:2px 1px;border-radius:7px;transition:.15s}
 .reviewChar.active{background:#ffe58a;transform:scale(1.18)}
 .reviewChar.done{color:#667085}
-</style></head><body><header><div class="head"><div><div class="title">1학년 국어공부</div><div class="ver">V1.9.5 · 받아쓰기</div></div><button class="homebtn" onclick="goHome()">수업 홈</button></div></header><main class="wrap">
+</style></head><body><header><div class="head"><div><div class="title">1학년 국어공부</div><div class="ver">V1.9.6 · 받아쓰기</div></div><button class="homebtn" onclick="goHome()">수업 홈</button></div></header><main class="wrap">
 <section id="home"><div class="card"><h2>자유 받아쓰기</h2><p class="sub">문제은행에서 최근 문제를 피해서 매번 10문제를 공부합니다.</p><button onclick="startFree()">자유 받아쓰기 시작</button></div><div class="card"><h2>엄마 받아쓰기</h2><p class="sub">엄마와 한 문제씩 확인하고 완성한 문제로 공부합니다.</p><button onclick="show('maker')">엄마와 문제 만들기</button><button class="secondary" onclick="show('momList')">엄마 문제 공부</button></div><div class="card"><h2>엄마 학습기록</h2><p class="sub">공부 횟수, 점수, 자주 틀린 문제와 지도 방법을 확인합니다.</p><button class="secondary" onclick="show('records')">학습기록 보기</button></div></section>
 <section id="quiz" class="hidden"><div class="card"><div id="qmeta" class="sub"></div><h2>🔊 받아쓰기</h2><button onclick="speakCurrent()">문제 듣기</button><p>들은 문장과 정확히 같은 문장을 고르세요.</p><div id="choices"></div><div id="feedback"></div></div></section>
 <section id="review" class="hidden">
@@ -170,7 +170,25 @@ function resetLearning(){
 }
 function checkSentence(){let s=document.getElementById('momSentence').value.trim().replace(/\s+/g,' '),box=document.getElementById('checkResult');if(!s){box.innerHTML='<div class="card bad">문장을 먼저 입력해 주세요.</div>';return}let issues=[];const known=[["함게","‘함께’인지 확인해 주세요."],["학고","‘학교’인지 확인해 주세요."],["몇일","‘며칠’인지 확인해 주세요."],["됬","‘됐’인지 확인해 주세요."],["깨끗히","‘깨끗이’인지 확인해 주세요."],["왠지","‘웬지’인지 확인해 주세요."]];known.forEach(([a,m])=>{if(s.includes(a))issues.push(m)});if(!/[.!?]$/.test(s))issues.push('문장 끝에 마침표·물음표·느낌표가 있는지 확인해 주세요.');if(issues.length){box.innerHTML='<div class="card warn"><b>확인할 부분이 있습니다.</b>'+issues.map(x=>`<p>• ${x}</p>`).join('')+'<p class="sub">고친 뒤 다시 검사해 주세요.</p></div>';document.getElementById('optionMaker').classList.add('hidden');return}draft=[s,...wrongs(s)];while(draft.length<4)draft.push(s.replace(/[.!?]?$/,(draft.length%2?'?':'!')));draft=[...new Set(draft)].slice(0,4);if(draft.length<4){box.innerHTML='<div class="card warn">이 문장에서는 서로 다른 보기를 충분히 만들지 못했습니다. 문장을 조금 길게 입력해 주세요.</div>';return}box.innerHTML='<div class="card ok"><b>기본 검사 통과</b><p class="sub">앱의 기본 검사에서 뚜렷한 오류를 찾지 못했습니다. 아래 보기 4개를 엄마가 최종 확인해 주세요.</p></div>';renderEditors()}
 function renderEditors(){document.getElementById('optionMaker').classList.remove('hidden');document.getElementById('optionEditors').innerHTML=draft.map((x,i)=>`<div class="optionEdit"><label>${i===0?'<span class="correctMark">정답</span>':'오답 보기 '+i}</label><input id="opt${i}" value="${esc(x)}"></div>`).join('');document.getElementById('optionMaker').scrollIntoView({behavior:'smooth',block:'start'})}function esc(s){return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}
-function saveOneQuestion(){let opts=[0,1,2,3].map(i=>document.getElementById('opt'+i).value.trim());if(opts.some(x=>!x)){alert('보기 4개를 모두 확인해 주세요.');return}if(new Set(opts).size<4){alert('보기 4개는 서로 달라야 합니다.');return}db.mom.push({correct:opts[0],options:opts});persist();document.getElementById('momSentence').value='';document.getElementById('checkResult').innerHTML='';document.getElementById('optionMaker').classList.add('hidden');draft=[];renderMade();window.scrollTo({top:0,behavior:'smooth'})}function cancelPreview(){document.getElementById('optionMaker').classList.add('hidden');draft=[]}
+function saveOneQuestion(){
+ try{
+  let els=[0,1,2,3].map(i=>document.getElementById('opt'+i));
+  if(els.some(x=>!x)){alert('보기 입력칸을 다시 불러와 주세요.');return}
+  let opts=els.map(x=>x.value.trim());
+  if(opts.some(x=>!x)){alert('보기 4개를 모두 확인해 주세요.');return}
+  if(new Set(opts).size<4){alert('보기 4개는 서로 달라야 합니다.');return}
+  if(!Array.isArray(db.mom))db.mom=[];
+  db.mom.push({correct:opts[0],text:opts[0],options:[...opts]});
+  try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){db.mom.pop();alert('저장공간에 저장하지 못했습니다.');return}
+  draft=[];
+  document.getElementById('momSentence').value='';
+  document.getElementById('checkResult').innerHTML='<div class="card ok"><b>문제가 저장되었습니다.</b> 다음 정답 문장을 입력해 주세요.</div>';
+  document.getElementById('optionMaker').classList.add('hidden');
+  renderMade();
+  window.scrollTo({top:0,behavior:'smooth'});
+ }catch(e){console.error(e);alert('문제를 저장하지 못했습니다. 다시 시도해 주세요.')}
+}
+function cancelPreview(){document.getElementById('optionMaker').classList.add('hidden');draft=[]}
 function renderMade(){document.getElementById('madeCount').textContent=db.mom.length;document.getElementById('madeList').innerHTML=db.mom.length?db.mom.map((q,i)=>`<div class="card"><b>${i+1}. ${q.correct}</b><br><button class="secondary" onclick="editMom(${i})">수정</button><button class="danger" onclick="deleteMom(${i})">삭제</button></div>`).join(''):'<p class="sub">아직 만든 문제가 없습니다. 위에서 한 문제씩 함께 만들어 주세요.</p>'}function editMom(i){let q=db.mom[i];document.getElementById('momSentence').value=q.correct;draft=[...q.options];db.mom.splice(i,1);persist();document.getElementById('checkResult').innerHTML='<div class="card ok">저장된 보기를 불러왔습니다. 아래에서 수정한 뒤 다시 저장하세요.</div>';renderEditors();renderMade()}function deleteMom(i){if(confirm('이 문제를 삭제할까요?')){db.mom.splice(i,1);persist();renderMade()}}function clearMomQuestions(){if(!db.mom.length)return;if(confirm('현재 엄마 문제를 모두 삭제하고 처음부터 다시 만들까요?')){db.mom=[];persist();renderMade()}}
 function renderMomList(){let n=db.mom.length;document.getElementById('momReady').textContent=n>=10?`현재 ${n}문제 · 매 수업 10문제씩 출제됩니다.`:`현재 ${n}문제 · 10문제가 되면 수업을 시작할 수 있습니다.`;document.getElementById('startMomBtn').disabled=n<10;document.getElementById('momQuestions').innerHTML=n?db.mom.map((q,i)=>`<p>${i+1}. ${q.correct}</p>`).join(''):'<p>아직 엄마 문제가 없습니다.</p>'}
 show('home');
